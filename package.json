@@ -1,0 +1,28 @@
+{
+  "name": "aurelia-acl",
+  "version": "0.0.1",
+  "description": "An ACL plugin to use with aurelia.",
+  "main": "aurelia-acl",
+  "scripts": {
+    "test": "gulp test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SpoonX/aurelia-acl.git"
+  },
+  "keywords": [
+    "aurelia",
+    "acl",
+    "permission",
+    "permissions",
+    "spoonx",
+    "auth",
+    "authentication"
+  ],
+  "author": "SpoonX <info@spoonx.nl>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/SpoonX/aurelia-acl/issues"
+  },
+  "homepage": "https://github.com/SpoonX/aurelia-acl#readme"
+}
