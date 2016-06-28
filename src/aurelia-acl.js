@@ -1,26 +1,24 @@
-import {AclManager} from './acl-manager';
-import {exists} from './utils';
+import {Acl} from './acl';
+import {exists, isObject, isFunction} from './utils';
 
 export function configure(aurelia, config) {
+  aurelia.globalResources('./attribute/allowed.js');
+
   if (!exists(config)) {
-    return;
+    return; /* do nothing if config does not exist */
   }
 
-  let aclManager = aurelia.container.get(AclManager);
+  let acl = aurelia.container.get(Acl);
 
-  if (typeof config === 'object') {
-    for (let key of Object.keys(config)) {
-      registerAclInstance(aclManager, key, config[key]);
-    }
-  } else if (typeof config === 'function') {
-    config(aclManager);
+  if (isObject(config)) {
+    acl.set(config);
   }
-}
 
-function registerAclInstance(aclManager, instance, privs) {
-  aclManager.set(instance, ...privs);
+  if (isFunction(config)) {
+    config(acl);
+  }
 }
 
 export {
-  AclManager
+  Acl
 };
