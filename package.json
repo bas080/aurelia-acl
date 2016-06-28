@@ -69,6 +69,8 @@
     },
     "dependencies": {
       "aurelia-logging": "^1.0.0-rc.1.0.0",
+      "aurelia-pal": "^1.0.0-rc.1.0.0",
+      "aurelia-templating": "^1.0.0-rc.1.0.0",
       "existy": "^1.0.1",
       "extend": "^3.0.0",
       "is-array": "^1.0.1",
