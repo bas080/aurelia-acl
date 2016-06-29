@@ -6,13 +6,9 @@ that way.
 
 ```js
 
-import {AclManager} from 'aurelia-acl';
-
 /* ... */
 
   .plugin('aurelia-acl', acl => {
-
-    /* acl.constructor === AclManager // => true */
 
     acl.grant('user', 'swim');
 

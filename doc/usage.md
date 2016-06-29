@@ -14,17 +14,27 @@ literal.
   });
 ```
 
+## Attrbiute
+
+```html
+<messages allowed="{chat: ['read', 'post']"></messages>>
+```
+
+An you are **done**.
+
+You can also use the view model instead if you prefer.
+
 ## View Model
 
-Implement aclManager in your view model.
+Implement acl in your view model.
 
 ```js
-import {AclManager} from 'aurelia-acl';
+import {Acl} from 'aurelia-acl';
 
-@inject(AclManager)
+@inject(Acl)
 export class Page {
-  constructor(aclManager) {
-    this.isAllowed = aclManager.has;
+  constructor(acl) {
+    this.isAllowed = acl.isAllowed;
   }
 }
 
@@ -33,11 +43,12 @@ export class Page {
 ## View
 
 Now tell the view to only render the element if has the `read` and `post` priv
-for messages.
+for `chat`.
 
 ```html
-  <messages if.bind="isAllowed('chat', 'read', 'post')"></messages>
+  <messages if.bind="isAllowed({chat: ['read', 'post'])"></messages>
 ```
 
 We configured that in a way that grants the current user the read and write for
 chat. The messages should be visible.
+
