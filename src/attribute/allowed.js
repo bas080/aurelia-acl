@@ -9,7 +9,7 @@ import {Acl} from '../acl';
 */
 @customAttribute('allowed')
 @inject(DOM.Element, Animator, Optional.of(DOM.boundary, true), Acl)
-export class Allower {
+export class Allowed {
   /**
   * Creates a new instance of Hide.
   * @param element Target element to conditionally hide.

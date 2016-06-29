@@ -22,7 +22,7 @@ describe('configure', () => {
   it('accepts a function', () => {
     let config = acl => {
       acl = acl;
-      acl.grant({user: 'all'});
+      acl.setPermissions({user: 'all'});
     };
     configure(aurelia, config);
     expect(acl.permissions.user.all).toBe(true);

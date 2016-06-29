@@ -1,20 +1,19 @@
 import {Acl} from './acl';
-import {exists, isObject, isFunction} from './utils';
 
 export function configure(aurelia, config) {
   aurelia.globalResources('./attribute/allowed.js');
 
-  if (!exists(config)) {
-    return; /* do nothing if config does not exist */
+  if (!config) {
+    return; /* do nothing if config is falsy */
   }
 
   let acl = aurelia.container.get(Acl);
 
-  if (isObject(config)) {
-    acl.set(config);
+  if (typeof config === 'object') {
+    acl.setPermissions(config);
   }
 
-  if (isFunction(config)) {
+  if (typeof config === 'function') {
     config(acl);
   }
 }
