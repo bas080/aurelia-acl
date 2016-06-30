@@ -16,7 +16,7 @@ let userPermissions = {
   messages: {
     read: true,
     write: true,
-    delete, false
+    delete: false
   }
 };
 
@@ -43,7 +43,7 @@ This array is normalized to the same shape as the example above.
 ## String
 
 If nesting is not your thing and you would like to keep things really flat and
-simple, you should just use strings. `acl.grant('messages')` to grant messages
+simple, you should just use strings. `acl.permit('messages')` to grant messages
 permissions.
 
 ```js

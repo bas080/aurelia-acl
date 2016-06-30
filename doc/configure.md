@@ -10,11 +10,9 @@ that way.
 
   .plugin('aurelia-acl', acl => {
 
-    acl.grant('user', 'swim');
+    acl.permit('user', 'swim');
 
-    acl.grant('admin', 'fly', 'clouds');
-
-    acl.grant('me', 'crawl');
+    acl.permit('admin', 'fly');
 
   })
 
@@ -28,8 +26,7 @@ Passing a simple javascript object is also a possibility
 
   .plugin('aurelia-acl', {
     user: ['swim'],
-    admin: ['fly', 'clouds'],
-    me: ['crawl']
+    admin: ['fly'],
   });
 
 ```
