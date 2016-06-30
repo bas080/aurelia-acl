@@ -10,6 +10,7 @@ import {Acl} from '../acl';
 @customAttribute('allowed')
 @inject(DOM.Element, Animator, Optional.of(DOM.boundary, true), Acl)
 export class Allowed {
+
   /**
   * Creates a new instance of Hide.
   * @param element Target element to conditionally hide.
@@ -22,13 +23,6 @@ export class Allowed {
     this.animator    = animator;
     this.domBoundary = domBoundary;
   }
-
-  /**
-  * Invoked when the behavior is created.
-  */
-  // created() {
-  //   injectAureliaHideStyleAtBoundary(this.domBoundary);
-  // }
 
   /**
   * Invoked everytime the bound value changes.
