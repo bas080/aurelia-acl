@@ -18,6 +18,7 @@ export class Acl {
 
       this.permit(resource, permissions[resource]);
     }
+
     return this;
   }
 
