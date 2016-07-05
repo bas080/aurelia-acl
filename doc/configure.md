@@ -1,8 +1,10 @@
 # Configure
 
 It is possible to configure the aurelia acl in your configurations. You can
-either get access to the `aclManager` or pass an object to set the privileges
-that way.
+either get access to the `acl` application singleton instance or pass an object
+to set the privileges that way.
+
+> using the acl instance by defining a function
 
 ```js
 
@@ -10,9 +12,11 @@ that way.
 
   .plugin('aurelia-acl', acl => {
 
-    acl.permit('user', 'swim');
+    acl.grant({'user': 'swim'});
 
-    acl.permit('admin', 'fly');
+    /* or */
+
+    acl.set({ 'admin': 'fly' });
 
   })
 
@@ -20,7 +24,8 @@ that way.
 
 ```
 
-Passing a simple javascript object is also a possibility
+> Passing a simple javascript object which defined the permissions is also
+> possible.
 
 ```js
 
@@ -30,3 +35,6 @@ Passing a simple javascript object is also a possibility
   });
 
 ```
+
+You can also choose to set the permissions at another moment in your
+application lifecycle.

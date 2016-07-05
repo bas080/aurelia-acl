@@ -10,8 +10,10 @@ see the same as an accountant. Let's define some permissions first.
 ```js
 
   ajax.get( '/user', user => {
-    acl.permit('user', 'messages');
-    canSeeStatistics(user) && acl.permit('user', 'statistics')
+    acl.grant({
+      messages: true,
+      statistics: canSeeStatistics(user)
+    })
   });
 
   function canSeeStatistics(user) {
@@ -23,9 +25,9 @@ see the same as an accountant. Let's define some permissions first.
 And using a simple string to describe the required permission.
 
 ```html
-  <messages allowed="{user: 'messages'}'"></messages>
+  <messages allowed="'messages'"></messages>
 
-  <statistics allowed="{user: 'statistics'}"></statistics>
+  <statistics allowed="'statistics'"></statistics>
 ```
 
 If all is well the accountant does get to see the statistics and other users do
