@@ -1,8 +1,13 @@
-import {isNumber, isSubset, isBoolean, isObject, isString, extend} from './utils';
+import {isNumber, isBoolean, isObject, isString, extend} from './utils';
 
 export class Acl {
 
   permissions = {};
+
+  constructor() {
+    /* make sure the isAllowed has the this context */
+    this.isAllowed = this.isAllowed.bind(this);
+  }
 
   /**
    * reset the permissions object. Previously set permissions are removed
@@ -13,6 +18,7 @@ export class Acl {
    */
   set(permissions) {
     this.permissions = normalizedPermissions(permissions);
+
     return this.permissions;
   }
 
@@ -26,6 +32,7 @@ export class Acl {
    */
   grant(permissions, revoke = false) {
     this.permissions = extend(true, this.permissions, normalizedPermissions(permissions, revoke));
+
     return this.permissions;
   }
 
@@ -70,6 +77,7 @@ export function normalizedPermissions(permissions, revoke = false) {
     permissions.forEach(item => {
       result = extend(true, result, normalizedPermissions(item), revoke);
     });
+
     return result;
   }
 
@@ -79,6 +87,7 @@ export function normalizedPermissions(permissions, revoke = false) {
     keys.forEach(key => {
       result[key] = normalizedPermissions(permissions[key], revoke);
     });
+
     return result;
   }
 
@@ -95,4 +104,25 @@ export function normalizedPermissions(permissions, revoke = false) {
   }
 
   return permissions;
+}
+
+/**
+ * returns true when the needle permissions object is "contained" in the
+ * haystack permissions object.
+ *
+ * @param {object} a haystack object
+ * @param {object} b needle object
+ *
+ * @returns {boolean}
+ */
+export function isSubset(a, b) {
+  if (isObject(a) && isObject(b)) {
+    for (let key in b) {
+      if (!isSubset(a[key], b[key])) {
+        return false;
+      }
+    }
+    return true;
+  }
+  return (a === b) || (a === true);
 }

@@ -1,4 +1,4 @@
-import {inject, Optional} from 'aurelia-dependency-injection';
+import {inject, Optional} from 'aurelia-framework';
 import {customAttribute, Animator} from 'aurelia-templating';
 import {DOM} from 'aurelia-pal';
 import {Acl} from '../acl';

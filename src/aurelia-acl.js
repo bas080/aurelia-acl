@@ -1,5 +1,6 @@
 import {Acl} from './acl';
 import {exists, isObject, isFunction} from './utils';
+export {Allowed} from './attribute/allowed';
 
 export function configure(aurelia, config) {
   aurelia.globalResources('./attribute/allowed.js');
