@@ -1,4 +1,4 @@
-import {isSubset, isBoolean, isObject, isString, extend} from './utils';
+import {isNumber, isSubset, isBoolean, isObject, isString, extend} from './utils';
 
 export class Acl {
 
@@ -63,8 +63,6 @@ export class Acl {
  * @param {boolean} [revoke=false] when truthy sets the permissions to false
  *
  * @returns {object}
- *
- * @todo could make a package of this function names normalize-to-objects
  */
 export function normalizedPermissions(permissions, revoke = false) {
   if (Array.isArray(permissions)) {
@@ -84,7 +82,7 @@ export function normalizedPermissions(permissions, revoke = false) {
     return result;
   }
 
-  if (isString(permissions)) {
+  if (isString(permissions) || isNumber(permissions)) {
     return {[permissions]: isGranted(permissions)};
   }
 
