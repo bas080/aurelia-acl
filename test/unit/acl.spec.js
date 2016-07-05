@@ -3,35 +3,70 @@ import {Acl} from '../../src/acl.js';
 describe('Acl', () => {
 
   let acl;
-  let permissions = {
-    post    : true,
-    product : ['read'],
-    comment: 'read',
-    foo: {bar: true, bat: false},
-    user    : false,
-    category: ['create', 'read', 'update', 'delete']
-  };
-
   beforeEach(() => {
-    acl = new Acl().setPermissions(permissions);
+    acl = new Acl();
   });
 
-  it('has a permissions object', () => {
-    expect(typeof acl.permissions).toBe('object');
+  it('permissions can be set in mysterious ways', () => {
+    let permissions = {
+      'user': 'read',
+      'admin': [{all: true }],
+      'super': ['all', 'more'],
+    };
+    expect(acl.set(permissions)).not.toBe(permissions);
+    let perms = acl.permissions;
+    expect(perms.user.read).toBe(true);
+    expect(perms.admin.all).toBe(true);
+    expect(perms.super.all).toBe(true);
+    expect(perms.super.more).toBe(true);
   });
 
-  it('can check if user is allowed', () => {
-    expect(acl.isAllowed('post', 'foo')).toBe(true);
-    expect(acl.isAllowed('product', 'read')).toBe(true);
-    expect(acl.isAllowed('product', 'write')).toBe(false);
-    expect(acl.isAllowed('user', 'write')).toBe(false);
-    expect(acl.isAllowed('comment', 'read')).toBe(true);
-    expect(acl.isAllowed('comment', 'anything')).toBe(false);
-    expect(acl.isAllowed('category', ['read', 'delete'])).toBe(true);
-    expect(acl.isAllowed('category', ['read', 'delete', 'cake'])).toBe(false);
-    expect(acl.isAllowed({post: 'foo', category: ['read', 'delete']})).toBe(true);
-    expect(acl.isAllowed({post: 'foo', category: ['read', 'delete']})).toBe(true);
-    expect(acl.isAllowed({post: 'foo', category: ['read'], foo: ['bar']})).toBe(true);
+  it('can add additional permissions', () => {
+    acl.set({a: true });
+    let grantPerms = {b: true };
+    expect(acl.grant(grantPerms)).toEqual({a: true, b: true});
+  });
+
+  it('can revoke permissions', () => {
+    acl.set({a: true});
+    expect(acl.revoke({a: true})).toEqual({a: false});
+  });
+
+  it('can check if permissions are granted' , () => {
+    let can = acl.isAllowed.bind(acl);
+
+    acl.set({
+      a: true,
+      b: false,
+      c: ['a'],
+      d: {
+        a: true,
+        b: {
+          a: true
+        },
+        c: false
+      }
+    });
+
+    expect(can(['a'])).toBe(true);
+    expect(can(['b'])).not.toBe(true);
+    expect(can({b: false})).toBe(true);
+
+    /* now for nested permississions */
+
+    expect(can({d: ['a']})).toBe(true);
+    expect(can({d: {c: false}})).toBe(true);
+    expect(can({d: {b: ['a']}})).toBe(true);
+    expect(can({d: {b: {a: true}}})).toBe(true);
+  });
+
+  it('allows the setting of property to true which sets all nested permissions to true', () => {
+    let can = acl.isAllowed.bind(acl);
+
+    acl.set({company: {read: true}});
+
+    expect(can({company:{read: [1]}})).toBe(true);
+    expect(can({company:{read: {deep: {deeper: true}}}})).toBe(true);
   });
 
 });
