@@ -62,11 +62,10 @@ describe('Acl', () => {
 
   it('allows the setting of property to true which sets all nested permissions to true', () => {
     let can = acl.isAllowed.bind(acl);
-
     acl.set({company: {read: true}});
-
     expect(can({company:{read: [1]}})).toBe(true);
     expect(can({company:{read: {deep: {deeper: true}}}})).toBe(true);
+    expect(can({company: 'read'})).toBe(true);
   });
 
 });
