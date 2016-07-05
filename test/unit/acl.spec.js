@@ -68,4 +68,14 @@ describe('Acl', () => {
     expect(can({company: 'read'})).toBe(true);
   });
 
+  it('also works with numbers', () => {
+    let can = acl.isAllowed.bind(acl);
+
+    acl.set({company: {
+      read: [1,2,3,4]
+    }});
+
+    expect(can({company: {read: [1,2]}}));
+  });
+
 });
