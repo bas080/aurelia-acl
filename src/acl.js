@@ -59,6 +59,18 @@ export class Acl {
   }
 
   /**
+   * Check permission to access an action of a resource
+   *
+   * @param  {{}}     resource
+   * @param  {String} action
+   *
+   * @return {boolean}
+   */
+  hasPermission(resource, action) {
+    return !!(typeof this.permissions[resource] === 'object' && this.permissions[resource][action]);
+  }
+
+  /**
    * Return true when the resource has the desired permissions
    *
    * @param {*} resource used to reference the permissions
@@ -74,7 +86,7 @@ export class Acl {
     }
 
     if (!Array.isArray(action)) {
-      return !!(this.permissions[resource] === true || (typeof this.permissions[resource] === 'object' && this.permissions[resource][action]));
+      return this.permissions[resource] === true || this.hasPermission(resource, action);
     }
 
     return action.every(actionName => {

@@ -1,8 +1,6 @@
 import {configure} from '../../src/aurelia-acl';
-import {Acl} from '../../src/acl';
 
 describe('configure', () => {
-
   let aurelia;
   let acl;
 
@@ -10,6 +8,7 @@ describe('configure', () => {
     /* mock aurelia.container.get*/
     aurelia = {container: {get: (Constructor) => {
       acl = new Constructor();
+
       return acl;
     }},
     globalResources: () => {}};
@@ -20,10 +19,11 @@ describe('configure', () => {
   });
 
   it('accepts a function', () => {
-    let config = acl => {
-      acl = acl;
+    let config = configAcl => {
+      acl = configAcl;
       acl.setPermissions({user: 'all'});
     };
+
     configure(aurelia, config);
     expect(acl.permissions.user.all).toBe(true);
     expect(acl.isAllowed({user: 'all'})).toBe(true);
@@ -34,6 +34,7 @@ describe('configure', () => {
       user: ['all'],
       admin: ['foo']
     };
+
     configure(aurelia, config);
     expect(acl.permissions.user.all).toBe(true);
     expect(acl.permissions.admin.foo).toEqual(true);

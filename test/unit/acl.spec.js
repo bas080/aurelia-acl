@@ -1,13 +1,12 @@
 import {Acl} from '../../src/acl.js';
 
 describe('Acl', () => {
-
   let acl;
   let permissions = {
     post    : true,
     product : ['read'],
-    comment: 'read',
-    foo: {bar: true, bat: false},
+    comment : 'read',
+    foo     : {bar: true, bat: false},
     user    : false,
     category: ['create', 'read', 'update', 'delete']
   };
@@ -33,5 +32,4 @@ describe('Acl', () => {
     expect(acl.isAllowed({post: 'foo', category: ['read', 'delete']})).toBe(true);
     expect(acl.isAllowed({post: 'foo', category: ['read'], foo: ['bar']})).toBe(true);
   });
-
 });
