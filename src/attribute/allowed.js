@@ -31,9 +31,11 @@ export class Allowed {
   valueChanged(newValue) {
     if (this.acl.isAllowed(newValue)) {
       this.animator.removeClass(this.element, 'aurelia-hide');
-    } else {
-      this.animator.addClass(this.element, 'aurelia-hide');
+
+      return;
     }
+
+    this.animator.addClass(this.element, 'aurelia-hide');
   }
 
   /**
