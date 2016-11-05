@@ -1,5 +1,3 @@
-export {Allowed} from './attribute/allowed';
-
 export class Acl {
   permissions = {};
 

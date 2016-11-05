@@ -1,0 +1,35 @@
+{
+  "name": "aurelia-acl",
+  "version": "0.0.2",
+  "description": "An ACL plugin to use with aurelia.",
+  "keywords": [
+    "aurelia",
+    "acl",
+    "permission",
+    "permissions",
+    "spoonx",
+    "auth",
+    "authentication"
+  ],
+  "moduleType": "node",
+  "homepage": "https://github.com/SpoonX/aurelia-acl#readme",
+  "license": "MIT",
+  "author": "SpoonX <info@spoonx.nl>",
+  "contributors": [
+    {
+      "name": "Bassim Huis",
+      "email": "bas080@hotmail.com"
+    }
+  ],
+  "main": "dist/commonjs/aurelia-acl.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SpoonX/aurelia-acl.git"
+  },
+  "dependencies": {
+    "aurelia-dependency-injection": "^1.2.0",
+    "aurelia-logging": "^1.0.0",
+    "aurelia-pal": "^1.0.0",
+    "aurelia-templating": "^1.0.0"
+  }
+}

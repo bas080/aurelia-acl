@@ -17,7 +17,3 @@ export function configure(aurelia, config) {
     config(acl);
   }
 }
-
-export {
-  Acl
-};
